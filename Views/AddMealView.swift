@@ -42,14 +42,16 @@ struct AddMealView: View {
                 }
                 .padding(16)
             }
+            .background(Theme.Colors.background)
             .navigationTitle("Add Meal")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Theme.Colors.background.ignoresSafeArea())
             .alert("Error", isPresented: .constant(errorMessage != nil)) {
                 Button("OK") { errorMessage = nil }
             } message: {
@@ -68,9 +70,13 @@ struct AddMealView: View {
             typeButton(.recipe, icon: "book.fill", label: "Recipe")
         }
         .padding(4)
-        .background(Color(.systemBackground))
+        .background(Theme.Colors.cardBackground)
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.25), radius: 6, x: 0, y: 3)
     }
     
     private func typeButton(_ type: MealInputType, icon: String, label: String) -> some View {
@@ -81,14 +87,14 @@ struct AddMealView: View {
         }) {
             VStack(spacing: 4) {
                 Image(systemName: icon)
-                    .font(.system(size: 24))
+                    .font(Theme.Fonts.sans(size: 24))
                 Text(label)
-                    .font(.system(size: 12, weight: selectedType == type ? .semibold : .regular))
+                    .font(Theme.Fonts.sans(size: 12, weight: selectedType == type ? .semibold : .regular))
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .foregroundColor(selectedType == type ? .white : .secondary)
-            .background(selectedType == type ? Color.blue : Color.clear)
+            .foregroundColor(selectedType == type ? Theme.Colors.primaryText : Theme.Colors.mutedText)
+            .background(selectedType == type ? Theme.Colors.accentBackground : Color.clear)
             .cornerRadius(8)
         }
     }
@@ -113,20 +119,21 @@ struct AddMealView: View {
         VStack(spacing: 12) {
             TextField("Meal Name", text: $mealName)
                 .textFieldStyle(RoundedTextFieldStyle())
-            
+
             TextEditor(text: $mealDescription)
                 .frame(height: 120)
                 .padding(12)
-                .background(Color(.systemBackground))
+                .foregroundColor(Theme.Colors.cardText)
+                .background(Theme.Colors.cardBackground)
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                        .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
                 )
                 .overlay(alignment: .topLeading) {
                     if mealDescription.isEmpty {
                         Text("Describe your meal (ingredients, preparation, etc.)")
-                            .foregroundColor(.secondary)
+                            .foregroundColor(Theme.Colors.mutedText)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 20)
                             .allowsHitTesting(false)
@@ -144,39 +151,39 @@ struct AddMealView: View {
                 ZStack(alignment: .topTrailing) {
                     // Placeholder for photo
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.blue.opacity(0.1))
+                        .fill(Theme.Colors.cardBackground)
                         .frame(height: 200)
                         .overlay(
                             Image(systemName: "photo")
-                                .font(.system(size: 48))
-                                .foregroundColor(.blue)
+                                .font(Theme.Fonts.sans(size: 48))
+                                .foregroundColor(Theme.Colors.accentBackground)
                         )
-                    
+
                     Button(action: { self.photoURL = nil }) {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 28))
-                            .foregroundColor(.gray)
+                            .font(Theme.Fonts.sans(size: 28))
+                            .foregroundColor(Theme.Colors.mutedText)
                     }
                     .padding(8)
                 }
             } else {
                 VStack(spacing: 16) {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.systemBackground))
+                        .fill(Theme.Colors.cardBackground)
                         .frame(height: 200)
                         .overlay(
                             VStack(spacing: 12) {
                                 Image(systemName: "camera")
-                                    .font(.system(size: 48))
-                                    .foregroundColor(.secondary)
-                                
+                                    .font(Theme.Fonts.sans(size: 48))
+                                    .foregroundColor(Theme.Colors.mutedText)
+
                                 PhotosPicker(selection: $selectedPhoto, matching: .images) {
                                     Text("Take Photo or Choose from Library")
-                                        .font(.system(size: 16, weight: .semibold))
-                                        .foregroundColor(.white)
+                                        .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                                        .foregroundColor(Theme.Colors.primaryText)
                                         .padding(.horizontal, 20)
                                         .padding(.vertical, 12)
-                                        .background(Color.blue)
+                                        .background(Theme.Colors.accentBackground)
                                         .cornerRadius(12)
                                 }
                             }
@@ -195,47 +202,52 @@ struct AddMealView: View {
         VStack(spacing: 16) {
             TextField("Meal Name", text: $mealName)
                 .textFieldStyle(RoundedTextFieldStyle())
-            
+
             VStack(spacing: 16) {
                 Image(systemName: "mic.fill")
-                    .font(.system(size: 64))
-                    .foregroundColor(.blue)
-                
+                    .font(Theme.Fonts.sans(size: 64))
+                    .foregroundColor(Theme.Colors.secondaryBackground)
+
                 Button(action: recordVoice) {
                     Text("Tap to Record")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                        .foregroundColor(Theme.Colors.primaryText)
                         .padding(.horizontal, 32)
                         .padding(.vertical, 16)
-                        .background(Color.blue)
+                        .background(Theme.Colors.secondaryBackground)
                         .cornerRadius(12)
                 }
-                
+
                 Text("Describe your meal with voice")
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .font(Theme.Fonts.sans(size: 14))
+                    .foregroundColor(Theme.Colors.mutedText)
             }
             .padding(32)
             .frame(maxWidth: .infinity)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.cardBackground)
             .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+            )
         }
     }
     
     private var recipeInput: some View {
         VStack(spacing: 16) {
             Image(systemName: "book.fill")
-                .font(.system(size: 64))
-                .foregroundColor(.blue)
-            
+                .font(Theme.Fonts.sans(size: 64))
+                .foregroundColor(Theme.Colors.chartFive)
+
             Text("Choose from Recipe Hub")
-                .font(.system(size: 18, weight: .semibold))
-            
+                .font(Theme.Fonts.sans(size: 18, weight: .semibold))
+                .foregroundColor(Theme.Colors.cardText)
+
             Text("Browse your saved recipes or discover new ones")
-                .font(.system(size: 14))
-                .foregroundColor(.secondary)
+                .font(Theme.Fonts.sans(size: 14))
+                .foregroundColor(Theme.Colors.mutedText)
                 .multilineTextAlignment(.center)
-            
+
             Button(action: {
                 dismiss()
                 // TODO: Navigate to recipes tab
@@ -244,18 +256,22 @@ struct AddMealView: View {
                     Text("Go to Recipes")
                     Image(systemName: "arrow.right")
                 }
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
+                .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                .foregroundColor(Theme.Colors.primaryText)
                 .padding(.horizontal, 24)
                 .padding(.vertical, 12)
-                .background(Color.blue)
+                .background(Theme.Colors.secondaryBackground)
                 .cornerRadius(12)
             }
         }
         .padding(24)
         .frame(maxWidth: .infinity)
-        .background(Color(.systemBackground))
+        .background(Theme.Colors.cardBackground)
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
     }
     
     // MARK: - Analyze Button
@@ -264,16 +280,16 @@ struct AddMealView: View {
         Button(action: analyzeMeal) {
             if isAnalyzing {
                 ProgressView()
-                    .tint(.white)
+                    .tint(Theme.Colors.primaryText)
             } else {
                 Text("Analyze Meal")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(Theme.Fonts.sans(size: 16, weight: .semibold))
             }
         }
-        .foregroundColor(.white)
+        .foregroundColor(Theme.Colors.primaryText)
         .frame(maxWidth: .infinity)
         .padding(.vertical, 16)
-        .background(canAnalyze ? Color.blue : Color.gray)
+        .background(canAnalyze ? Theme.Colors.primaryBackground : Theme.Colors.componentsBorder)
         .cornerRadius(12)
         .disabled(!canAnalyze || isAnalyzing)
     }
@@ -294,25 +310,29 @@ struct AddMealView: View {
                 // Feedback Card
                 HStack(spacing: 12) {
                     Text(feedback.icon)
-                        .font(.system(size: 28))
-                    
+                        .font(Theme.Fonts.sans(size: 28))
+
                     Text(feedback.message)
-                        .font(.system(size: 15, weight: .medium))
+                        .font(Theme.Fonts.serifDisplay(size: 18))
+                        .foregroundColor(Theme.Colors.primaryText)
                         .lineSpacing(4)
                 }
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(.systemBackground))
-                .cornerRadius(12)
-                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
-                
+                .background(
+                    LinearGradient(colors: [Theme.Colors.primaryBackground, Theme.Colors.secondaryBackground], startPoint: .topLeading, endPoint: .bottomTrailing)
+                )
+                .cornerRadius(16)
+                .shadow(color: Theme.Colors.primaryBackground.opacity(0.4), radius: 8, x: 0, y: 4)
+
                 Divider()
-                
+
                 // Meal Info
                 VStack(alignment: .leading, spacing: 12) {
                     Text(meal.name)
-                        .font(.system(size: 20, weight: .bold))
-                    
+                        .font(Theme.Fonts.sans(size: 20, weight: .bold))
+                        .foregroundColor(Theme.Colors.cardText)
+
                     HStack(spacing: 12) {
                         TierBadge(tier: meal.tier)
                         PointsBadge(points: meal.points, large: true)
@@ -330,42 +350,45 @@ struct AddMealView: View {
                     
                     if let description = meal.description {
                         Text(description)
-                            .font(.system(size: 14))
-                            .foregroundColor(.secondary)
+                            .font(Theme.Fonts.sans(size: 14))
+                            .foregroundColor(Theme.Colors.mutedText)
                             .lineSpacing(4)
                     }
                 }
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(.systemBackground))
+                .background(Theme.Colors.cardBackground)
                 .cornerRadius(12)
-                .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
-                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+                )
+
                 // Action Buttons
                 HStack(spacing: 12) {
                     Button(action: { analyzedMeal = nil }) {
                         Text("Try Again")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.blue)
+                            .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                            .foregroundColor(Theme.Colors.accentBackground)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 14)
                             .background(Color.clear)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.blue, lineWidth: 2)
+                                    .stroke(Theme.Colors.accentBackground, lineWidth: 2)
                             )
                     }
-                    
+
                     Button(action: saveMeal) {
                         HStack {
                             Image(systemName: "checkmark")
                             Text("Save to Day")
                         }
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                        .foregroundColor(Theme.Colors.primaryText)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 14)
-                        .background(Color.green)
+                        .background(Theme.Colors.primaryBackground)
                         .cornerRadius(12)
                     }
                 }
@@ -423,12 +446,13 @@ struct AddMealView: View {
 struct RoundedTextFieldStyle: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
+            .foregroundColor(Theme.Colors.cardText)
             .padding(12)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.inputBackground)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                    .stroke(Theme.Colors.inputBorder, lineWidth: 1)
             )
     }
 }

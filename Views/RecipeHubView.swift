@@ -18,7 +18,7 @@ struct RecipeHubView: View {
             VStack(spacing: 0) {
                 // Custom Tab Bar
                 tabBar
-                
+
                 // Content
                 TabView(selection: $selectedTab) {
                     DiscoverTab()
@@ -29,13 +29,15 @@ struct RecipeHubView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
             }
+            .background(Theme.Colors.background)
             .navigationTitle("Recipes")
             .navigationBarTitleDisplayMode(.large)
-            .background(Color(.systemGroupedBackground))
+            .background(Theme.Colors.background.ignoresSafeArea())
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: { showingAddRecipe = true }) {
                         Image(systemName: "plus")
+                            .foregroundColor(Theme.Colors.accentBackground)
                     }
                 }
             }
@@ -52,19 +54,24 @@ struct RecipeHubView: View {
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 8)
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.Colors.mutedBackground)
+        .overlay(
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(Theme.Colors.componentsBorder), alignment: .bottom
+        )
     }
-    
+
     private func tabButton(title: String, tag: Int) -> some View {
         Button(action: { selectedTab = tag }) {
             VStack(spacing: 8) {
                 Text(title)
-                    .font(.system(size: 16, weight: selectedTab == tag ? .semibold : .regular))
-                    .foregroundColor(selectedTab == tag ? .blue : .secondary)
-                
+                    .font(Theme.Fonts.sans(size: 16, weight: selectedTab == tag ? .semibold : .regular))
+                    .foregroundColor(selectedTab == tag ? Theme.Colors.accentBackground : Theme.Colors.mutedText)
+
                 if selectedTab == tag {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(Color.blue)
+                        .fill(Theme.Colors.accentBackground)
                         .frame(height: 3)
                 } else {
                     Rectangle()
@@ -105,6 +112,7 @@ struct DiscoverTab: View {
                 .padding(16)
             }
         }
+        .background(Theme.Colors.background)
     }
 }
 
@@ -139,6 +147,7 @@ struct MyRecipesTab: View {
                 .padding(16)
             }
         }
+        .background(Theme.Colors.background)
         .sheet(isPresented: $showingAddRecipe) {
             AddRecipeView()
         }
@@ -154,20 +163,20 @@ struct RecipeCard: View {
         VStack(alignment: .leading, spacing: 0) {
             // Photo or placeholder
             if let photoURL = recipe.photoURL {
-                Color.blue.opacity(0.1)
+                Theme.Colors.accentBackground.opacity(0.15)
                     .frame(height: 180)
                     .overlay(
                         Image(systemName: "photo")
-                            .font(.system(size: 60))
-                            .foregroundColor(.blue.opacity(0.3))
+                            .font(Theme.Fonts.sans(size: 60))
+                            .foregroundColor(Theme.Colors.accentBackground.opacity(0.4))
                     )
             } else {
-                Color.blue.opacity(0.1)
+                Theme.Colors.accentBackground.opacity(0.15)
                     .frame(height: 180)
                     .overlay(
                         Image(systemName: "book.fill")
-                            .font(.system(size: 60))
-                            .foregroundColor(.blue.opacity(0.3))
+                            .font(Theme.Fonts.sans(size: 60))
+                            .foregroundColor(Theme.Colors.accentBackground.opacity(0.4))
                     )
             }
             
@@ -175,15 +184,15 @@ struct RecipeCard: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .top) {
                     Text(recipe.title)
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.primary)
+                        .font(Theme.Fonts.sans(size: 18, weight: .bold))
+                        .foregroundColor(Theme.Colors.cardText)
                         .lineLimit(2)
                     
                     Spacer()
                     
                     Button(action: { try? recipesViewModel.toggleFavorite(recipe.id) }) {
                         Image(systemName: recipe.isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(recipe.isFavorite ? .red : .secondary)
+                            .foregroundColor(recipe.isFavorite ? Theme.Colors.destructiveBackground : Theme.Colors.mutedText)
                     }
                 }
                 
@@ -202,26 +211,30 @@ struct RecipeCard: View {
                 HStack(spacing: 16) {
                     if let prepTime = recipe.prepTimeMinutes {
                         Label("\(prepTime) min", systemImage: "clock")
-                            .font(.system(size: 13))
-                            .foregroundColor(.secondary)
+                            .font(Theme.Fonts.sans(size: 13))
+                            .foregroundColor(Theme.Colors.mutedText)
                     }
-                    
+
                     if let cost = recipe.estimatedCost {
                         Label("$\(String(format: "%.2f", cost))", systemImage: "dollarsign.circle")
-                            .font(.system(size: 13))
-                            .foregroundColor(.secondary)
+                            .font(Theme.Fonts.sans(size: 13))
+                            .foregroundColor(Theme.Colors.mutedText)
                     }
-                    
+
                     Label("\(recipe.ingredients.count) items", systemImage: "list.bullet")
-                        .font(.system(size: 13))
-                        .foregroundColor(.secondary)
+                        .font(Theme.Fonts.sans(size: 13))
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
             }
             .padding(16)
         }
-        .background(Color(.systemBackground))
+        .background(Theme.Colors.cardBackground)
         .cornerRadius(16)
-        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
     }
 }
 

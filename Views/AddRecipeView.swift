@@ -58,8 +58,8 @@ struct AddRecipeView: View {
                         
                         Button(action: addIngredient) {
                             Image(systemName: "plus.circle.fill")
-                                .font(.system(size: 28))
-                                .foregroundColor(.blue)
+                                .font(Theme.Fonts.sans(size: 28))
+                                .foregroundColor(Theme.Colors.accentBackground)
                         }
                         .disabled(ingredientText.isEmpty)
                     }
@@ -71,7 +71,7 @@ struct AddRecipeView: View {
                                 Spacer()
                                 Button(action: { ingredients.removeAll { $0 == ingredient } }) {
                                     Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.red)
+                                        .foregroundColor(Theme.Colors.destructiveBackground)
                                 }
                             }
                         }
@@ -82,6 +82,12 @@ struct AddRecipeView: View {
                 Section("Instructions") {
                     TextEditor(text: $instructions)
                         .frame(minHeight: 120)
+                        .foregroundColor(Theme.Colors.cardText)
+                        .background(Theme.Colors.cardBackground)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+                        )
                 }
                 
                 // Diet Tags
@@ -90,27 +96,32 @@ struct AddRecipeView: View {
                         Button(action: { toggleDietTag(tag) }) {
                             HStack {
                                 Text(formatTag(tag))
-                                    .foregroundColor(.primary)
+                                    .foregroundColor(Theme.Colors.cardText)
                                 Spacer()
                                 if selectedDietTags.contains(tag) {
                                     Image(systemName: "checkmark")
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(Theme.Colors.accentBackground)
                                 }
                             }
                         }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Add Recipe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        saveRecipe()
+                    Button(action: saveRecipe) {
+                        Text("Save")
+                            .font(Theme.Fonts.sans(size: 16, weight: .semibold))
                     }
                     .disabled(!canSave || isSaving)
                 }
@@ -120,6 +131,7 @@ struct AddRecipeView: View {
             } message: {
                 Text(errorMessage ?? "")
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
     
@@ -130,35 +142,35 @@ struct AddRecipeView: View {
             if let photoURL = photoURL {
                 ZStack(alignment: .topTrailing) {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.blue.opacity(0.1))
+                        .fill(Theme.Colors.cardBackground)
                         .frame(height: 200)
                         .overlay(
                             Image(systemName: "photo")
-                                .font(.system(size: 48))
-                                .foregroundColor(.blue)
+                                .font(Theme.Fonts.sans(size: 48))
+                                .foregroundColor(Theme.Colors.accentBackground)
                         )
-                    
+
                     Button(action: { self.photoURL = nil; selectedPhoto = nil }) {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 28))
-                            .foregroundColor(.gray)
+                            .font(Theme.Fonts.sans(size: 28))
+                            .foregroundColor(Theme.Colors.mutedText)
                     }
                     .padding(8)
                 }
             } else {
                 PhotosPicker(selection: $selectedPhoto, matching: .images) {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color(.secondarySystemBackground))
+                        .fill(Theme.Colors.cardBackground)
                         .frame(height: 200)
                         .overlay(
                             VStack(spacing: 8) {
                                 Image(systemName: "camera")
-                                    .font(.system(size: 48))
-                                    .foregroundColor(.secondary)
-                                
+                                    .font(Theme.Fonts.sans(size: 48))
+                                    .foregroundColor(Theme.Colors.mutedText)
+
                                 Text("Add Photo (Optional)")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.secondary)
+                                    .font(Theme.Fonts.sans(size: 14))
+                                    .foregroundColor(Theme.Colors.mutedText)
                             }
                         )
                 }

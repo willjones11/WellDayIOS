@@ -20,29 +20,29 @@ struct TierBadge: View {
     var body: some View {
         HStack(spacing: compact ? 4 : 8) {
             Text(tier.emoji)
-                .font(.system(size: compact ? 14 : 18))
-            
+                .font(Theme.Fonts.sans(size: compact ? 14 : 18))
+
             Text(tier.label)
-                .font(.system(size: compact ? 12 : 14, weight: .bold))
-                .foregroundColor(tierColor)
+                .font(Theme.Fonts.sans(size: compact ? 12 : 14, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
         }
         .padding(.horizontal, compact ? 8 : 12)
         .padding(.vertical, compact ? 4 : 8)
-        .background(tierColor.opacity(0.1))
+        .background(tierColor.opacity(0.15))
         .overlay(
             RoundedRectangle(cornerRadius: compact ? 12 : 16)
                 .stroke(tierColor.opacity(0.3), lineWidth: 1.5)
         )
         .cornerRadius(compact ? 12 : 16)
     }
-    
+
     private var tierColor: Color {
         switch tier {
-        case .excellent: return .green
-        case .good: return .blue
-        case .neutral: return .gray
-        case .needsImprovement: return .orange
-        case .poor: return .red
+        case .excellent: return Theme.Colors.primaryBackground
+        case .good: return Theme.Colors.chartTwo
+        case .neutral: return Theme.Colors.chartThree
+        case .needsImprovement: return Theme.Colors.chartFour
+        case .poor: return Theme.Colors.destructiveBackground
         }
     }
 }
@@ -59,7 +59,7 @@ struct HealthTag: View {
     
     var body: some View {
         Text(formattedTag)
-            .font(.system(size: small ? 11 : 12, weight: .medium))
+            .font(Theme.Fonts.sans(size: small ? 11 : 12, weight: .medium))
             .foregroundColor(tagColor)
             .padding(.horizontal, small ? 8 : 10)
             .padding(.vertical, small ? 4 : 6)
@@ -79,13 +79,13 @@ struct HealthTag: View {
     
     private var tagColor: Color {
         if tag.contains("protein") || tag.contains("fiber") || tag.contains("nutrient") {
-            return .green
+            return Theme.Colors.primaryBackground
         } else if tag.contains("sodium") || tag.contains("sugar") || tag.contains("processed") {
-            return .orange
+            return Theme.Colors.chartFour
         } else if tag.contains("carb") || tag.contains("balanced") {
-            return .blue
+            return Theme.Colors.chartThree
         }
-        return .gray
+        return Theme.Colors.mutedText
     }
 }
 
@@ -101,7 +101,7 @@ struct PointsBadge: View {
     
     var body: some View {
         Text(points >= 0 ? "+\(points)" : "\(points)")
-            .font(.system(size: large ? 16 : 14, weight: .bold))
+            .font(Theme.Fonts.mono(size: large ? 16 : 14, weight: .bold))
             .foregroundColor(pointsColor)
             .padding(.horizontal, large ? 12 : 8)
             .padding(.vertical, large ? 8 : 6)
@@ -114,10 +114,10 @@ struct PointsBadge: View {
     }
     
     private var pointsColor: Color {
-        if points >= 6 { return .green }
-        if points >= 3 { return .blue }
-        if points > 0 { return .gray }
-        return .red
+        if points >= 6 { return Theme.Colors.primaryBackground }
+        if points >= 3 { return Theme.Colors.chartTwo }
+        if points > 0 { return Theme.Colors.chartThree }
+        return Theme.Colors.destructiveBackground
     }
 }
 
@@ -142,29 +142,33 @@ struct InfoTile: View {
         self.color = color
         self.action = action
     }
-    
+
     var body: some View {
         Button(action: { action?() }) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 8) {
                     Image(systemName: icon)
                         .foregroundColor(color)
-                        .font(.system(size: 20))
-                    
+                        .font(Theme.Fonts.sans(size: 20, weight: .medium))
+
                     Text(title)
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(.secondary)
+                        .font(Theme.Fonts.sans(size: 13, weight: .medium))
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
-                
+
                 Text(value)
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.primary)
+                    .font(Theme.Fonts.sans(size: 24, weight: .bold))
+                    .foregroundColor(Theme.Colors.cardText)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(16)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.cardBackground)
             .cornerRadius(16)
-            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.25), radius: 8, x: 0, y: 3)
         }
         .disabled(action == nil)
         .buttonStyle(PlainButtonStyle())
@@ -178,24 +182,24 @@ struct AdvisorCard: View {
     var body: some View {
         HStack(spacing: 16) {
             Text(message.icon)
-                .font(.system(size: 32))
-            
+                .font(Theme.Fonts.sans(size: 32))
+
             Text(message.message)
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(.white)
+                .font(Theme.Fonts.serifDisplay(size: 18))
+                .foregroundColor(Theme.Colors.primaryText)
                 .lineSpacing(4)
         }
-        .padding(16)
+        .padding(20)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             LinearGradient(
-                colors: [Color.blue.opacity(0.8), Color.blue],
+                colors: [Theme.Colors.primaryBackground, Theme.Colors.secondaryBackground],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         )
-        .cornerRadius(16)
-        .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
+        .cornerRadius(20)
+        .shadow(color: Theme.Colors.primaryBackground.opacity(0.4), radius: 12, x: 0, y: 6)
     }
 }
 
@@ -213,8 +217,8 @@ struct LoadingView: View {
                 .scaleEffect(1.5)
             
             Text(message)
-                .font(.system(size: 16))
-                .foregroundColor(.secondary)
+                .font(Theme.Fonts.sans(size: 16))
+                .foregroundColor(Theme.Colors.mutedText)
         }
     }
 }
@@ -244,33 +248,35 @@ struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: icon)
-                .font(.system(size: 64))
-                .foregroundColor(.secondary.opacity(0.5))
-            
+                .font(Theme.Fonts.sans(size: 64))
+                .foregroundColor(Theme.Colors.mutedText.opacity(0.8))
+
             Text(title)
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundColor(.primary)
-            
+                .font(Theme.Fonts.sans(size: 18, weight: .semibold))
+                .foregroundColor(Theme.Colors.cardText)
+
             Text(message)
-                .font(.system(size: 14))
-                .foregroundColor(.secondary)
+                .font(Theme.Fonts.sans(size: 14))
+                .foregroundColor(Theme.Colors.mutedText)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
-            
+
             if let buttonTitle = buttonTitle, let action = action {
                 Button(action: action) {
                     Text(buttonTitle)
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                        .foregroundColor(Theme.Colors.primaryText)
                         .padding(.horizontal, 24)
                         .padding(.vertical, 12)
-                        .background(Color.blue)
+                        .background(Theme.Colors.accentBackground)
                         .cornerRadius(12)
                 }
                 .padding(.top, 8)
             }
         }
         .padding(32)
+        .background(Theme.Colors.cardBackground)
+        .cornerRadius(20)
     }
 }
 
@@ -280,20 +286,20 @@ struct CommonComponents_Previews: PreviewProvider {
         VStack(spacing: 20) {
             TierBadge(tier: .excellent)
             TierBadge(tier: .good, compact: true)
-            
+
             HealthTag("protein_packed")
             HealthTag("high_sodium", small: true)
-            
+
             PointsBadge(points: 10)
             PointsBadge(points: -3, large: true)
-            
+
             InfoTile(
                 title: "Streak",
                 value: "5 days",
                 icon: "flame.fill",
-                color: .orange
+                color: Theme.Colors.chartFour
             )
-            
+
             AdvisorCard(message: AdvisorMessage(
                 message: "Great job yesterday! You're on track.",
                 type: .encouragement,
@@ -301,5 +307,6 @@ struct CommonComponents_Previews: PreviewProvider {
             ))
         }
         .padding()
+        .background(Theme.Colors.background)
     }
 }

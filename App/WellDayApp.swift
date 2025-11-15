@@ -57,7 +57,9 @@ struct ContentView: View {
                 }
                 .tag(2)
         }
-        .tint(.blue)
+        .tint(Theme.Colors.accentBackground)
+        .background(Theme.Colors.background.ignoresSafeArea())
+        .preferredColorScheme(.dark)
     }
 }
 

@@ -28,23 +28,23 @@ struct MealRow: View {
                 // Icon or photo
                 mealIcon
                     .frame(width: 60, height: 60)
-                    .background(iconBackgroundColor.opacity(0.1))
+                    .background(iconBackgroundColor.opacity(0.12))
                     .cornerRadius(8)
-                
+
                 // Content
                 VStack(alignment: .leading, spacing: 6) {
                     // Name and time
                     HStack {
                         Text(meal.name)
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.primary)
+                            .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                            .foregroundColor(Theme.Colors.cardText)
                             .lineLimit(1)
-                        
+
                         Spacer()
-                        
+
                         Text(showDate ? meal.formattedDate : meal.formattedTime)
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
+                            .font(Theme.Fonts.sans(size: 12))
+                            .foregroundColor(Theme.Colors.mutedText)
                     }
                     
                     // Tags
@@ -66,9 +66,13 @@ struct MealRow: View {
                 }
             }
             .padding(12)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.cardBackground)
             .cornerRadius(12)
-            .shadow(color: .black.opacity(0.05), radius: 3, x: 0, y: 2)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 3)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -78,24 +82,24 @@ struct MealRow: View {
         if let photoURL = meal.photoURL {
             // In production, load actual image from URL
             Image(systemName: "photo")
-                .font(.system(size: 30))
-                .foregroundColor(.blue)
+                .font(Theme.Fonts.sans(size: 30, weight: .medium))
+                .foregroundColor(Theme.Colors.accentBackground)
         } else {
             Image(systemName: meal.inputType.icon)
-                .font(.system(size: 30))
+                .font(Theme.Fonts.sans(size: 30, weight: .medium))
                 .foregroundColor(iconColor)
         }
     }
     
     private var iconColor: Color {
         switch meal.inputType {
-        case .photo: return .blue
-        case .text: return .green
-        case .voice: return .purple
-        case .recipe: return .orange
+        case .photo: return Theme.Colors.accentBackground
+        case .text: return Theme.Colors.primaryBackground
+        case .voice: return Theme.Colors.chartFive
+        case .recipe: return Theme.Colors.chartFour
         }
     }
-    
+
     private var iconBackgroundColor: Color {
         iconColor
     }
@@ -110,6 +114,6 @@ struct MealRow_Previews: PreviewProvider {
             MealRow(meal: Meal.samples[2])
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.Colors.background)
     }
 }
