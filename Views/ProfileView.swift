@@ -69,13 +69,16 @@ struct ProfileView: View {
                     Button(action: { showingLogoutAlert = true }) {
                         HStack {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
-                                .foregroundColor(.red)
+                                .foregroundColor(Theme.Colors.destructiveBackground)
                             Text("Logout")
-                                .foregroundColor(.red)
+                                .foregroundColor(Theme.Colors.destructiveBackground)
                         }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.large)
             .sheet(isPresented: $showingHealthGoalSheet) {
@@ -98,6 +101,7 @@ struct ProfileView: View {
             } message: {
                 Text("Are you sure you want to logout? Your data will be cleared.")
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
     
@@ -105,29 +109,34 @@ struct ProfileView: View {
     
     private var profileHeader: some View {
         HStack {
-            // Avatar
             Circle()
-                .fill(Color.blue.opacity(0.2))
+                .fill(Theme.Colors.accentBackground.opacity(0.2))
                 .frame(width: 80, height: 80)
                 .overlay(
                     Text(userViewModel.profile?.initials ?? "U")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundColor(.blue)
+                        .font(Theme.Fonts.sans(size: 32, weight: .bold))
+                        .foregroundColor(Theme.Colors.accentBackground)
                 )
-            
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(userViewModel.profile?.displayName ?? "User")
-                    .font(.system(size: 22, weight: .bold))
-                
+                    .font(Theme.Fonts.sans(size: 22, weight: .bold))
+                    .foregroundColor(Theme.Colors.cardText)
+
                 Text(userViewModel.profile?.email ?? "")
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .font(Theme.Fonts.sans(size: 14))
+                    .foregroundColor(Theme.Colors.mutedText)
             }
-            
+
             Spacer()
         }
-        .padding(.vertical, 20)
-        .padding(.horizontal, 16)
+        .padding()
+        .background(Theme.Colors.cardBackground)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
     }
     
     // MARK: - Stats Section
@@ -141,7 +150,7 @@ struct ProfileView: View {
                 icon: "flame.fill",
                 label: "Current Streak",
                 value: "\(streak) days",
-                color: .orange
+                color: Theme.Colors.chartFour
             )
             
             Divider()
@@ -150,24 +159,25 @@ struct ProfileView: View {
                 icon: "star.fill",
                 label: "Longest Streak",
                 value: "\(longestStreak) days",
-                color: .purple
+                color: Theme.Colors.chartFive
             )
         }
         .padding(.vertical, 8)
     }
-    
+
     private func statItem(icon: String, label: String, value: String, color: Color) -> some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.system(size: 32))
+                .font(Theme.Fonts.sans(size: 32))
                 .foregroundColor(color)
-            
+
             Text(value)
-                .font(.system(size: 20, weight: .bold))
-            
+                .font(Theme.Fonts.sans(size: 20, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
+
             Text(label)
-                .font(.system(size: 12))
-                .foregroundColor(.secondary)
+                .font(Theme.Fonts.sans(size: 12))
+                .foregroundColor(Theme.Colors.mutedText)
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
@@ -179,24 +189,24 @@ struct ProfileView: View {
         Button(action: action) {
             HStack {
                 Image(systemName: icon)
-                    .foregroundColor(.blue)
+                    .foregroundColor(Theme.Colors.accentBackground)
                     .frame(width: 24)
-                
+
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.primary)
-                    
+                        .font(Theme.Fonts.sans(size: 16, weight: .medium))
+                        .foregroundColor(Theme.Colors.cardText)
+
                     Text(value)
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
+                        .font(Theme.Fonts.sans(size: 14))
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
-                
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .font(Theme.Fonts.sans(size: 14))
+                    .foregroundColor(Theme.Colors.mutedText)
             }
         }
     }
@@ -231,28 +241,33 @@ struct HealthGoalSheet: View {
                     }) {
                         HStack {
                             Image(systemName: goal.icon)
-                                .foregroundColor(.blue)
-                            
+                                .foregroundColor(Theme.Colors.accentBackground)
+
                             Text(goal.label)
-                                .foregroundColor(.primary)
-                            
+                                .foregroundColor(Theme.Colors.cardText)
+
                             Spacer()
-                            
+
                             if userViewModel.profile?.healthGoal == goal {
                                 Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(Theme.Colors.accentBackground)
                             }
                         }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Health Goal")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
 }
@@ -273,19 +288,24 @@ struct BudgetSheet: View {
                     Text("Optional: Set a daily food budget to track spending")
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Daily Budget")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         let budget = Double(budgetText)
                         try? userViewModel.updateProfile(dailyBudget: budget)
                         dismiss()
                     }
+                    .disabled(budgetText.isEmpty)
                 }
             }
             .onAppear {
@@ -293,6 +313,7 @@ struct BudgetSheet: View {
                     budgetText = String(format: "%.2f", budget)
                 }
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
 }
@@ -315,25 +336,29 @@ struct DietarySheet: View {
                     Button(action: { togglePreference(pref) }) {
                         HStack {
                             Text(pref)
-                                .foregroundColor(.primary)
-                            
+                                .foregroundColor(Theme.Colors.cardText)
+
                             Spacer()
-                            
+
                             if selectedPreferences.contains(pref) {
                                 Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(Theme.Colors.accentBackground)
                             }
                         }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Dietary Preferences")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
-                
+
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         try? userViewModel.updateProfile(dietaryPreferences: Array(selectedPreferences))
@@ -344,6 +369,7 @@ struct DietarySheet: View {
             .onAppear {
                 selectedPreferences = Set(userViewModel.profile?.dietaryPreferences ?? [])
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
     
@@ -371,25 +397,30 @@ struct UnitsSheet: View {
                     }) {
                         HStack {
                             Text(unit.label)
-                                .foregroundColor(.primary)
-                            
+                                .foregroundColor(Theme.Colors.cardText)
+
                             Spacer()
-                            
+
                             if userViewModel.profile?.unitSystem == unit {
                                 Image(systemName: "checkmark")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(Theme.Colors.accentBackground)
                             }
                         }
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.Colors.background)
+            .tint(Theme.Colors.accentBackground)
             .navigationTitle("Units")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
             }
+            .background(Theme.Colors.background.ignoresSafeArea())
         }
     }
 }

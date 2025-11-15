@@ -45,12 +45,13 @@ struct RecipeDetailView: View {
                 .padding(16)
             }
         }
+        .background(Theme.Colors.background)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemGroupedBackground))
+        .background(Theme.Colors.background)
         .safeAreaInset(edge: .bottom) {
             addToTodayButton
                 .padding(16)
-                .background(Color(.systemGroupedBackground))
+                .background(Theme.Colors.mutedBackground)
         }
         .alert("Added to Today!", isPresented: $showingSuccessAlert) {
             Button("OK") { dismiss() }
@@ -64,20 +65,20 @@ struct RecipeDetailView: View {
     private var photoSection: some View {
         Group {
             if let photoURL = recipe.photoURL {
-                Color.blue.opacity(0.1)
+                Theme.Colors.accentBackground.opacity(0.15)
                     .frame(height: 250)
                     .overlay(
                         Image(systemName: "photo")
-                            .font(.system(size: 80))
-                            .foregroundColor(.blue.opacity(0.3))
+                            .font(Theme.Fonts.sans(size: 80))
+                            .foregroundColor(Theme.Colors.accentBackground.opacity(0.4))
                     )
             } else {
-                Color.blue.opacity(0.1)
+                Theme.Colors.accentBackground.opacity(0.15)
                     .frame(height: 250)
                     .overlay(
                         Image(systemName: "book.fill")
-                            .font(.system(size: 80))
-                            .foregroundColor(.blue.opacity(0.3))
+                            .font(Theme.Fonts.sans(size: 80))
+                            .foregroundColor(Theme.Colors.accentBackground.opacity(0.4))
                     )
             }
         }
@@ -88,14 +89,15 @@ struct RecipeDetailView: View {
     private var titleSection: some View {
         HStack(alignment: .top) {
             Text(recipe.title)
-                .font(.system(size: 26, weight: .bold))
-            
+                .font(Theme.Fonts.sans(size: 26, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
+
             Spacer()
-            
+
             Button(action: { try? recipesViewModel.toggleFavorite(recipe.id) }) {
                 Image(systemName: recipe.isFavorite ? "heart.fill" : "heart")
-                    .font(.system(size: 24))
-                    .foregroundColor(recipe.isFavorite ? .red : .secondary)
+                    .font(Theme.Fonts.sans(size: 24))
+                    .foregroundColor(recipe.isFavorite ? Theme.Colors.destructiveBackground : Theme.Colors.mutedText)
             }
         }
     }
@@ -144,20 +146,25 @@ struct RecipeDetailView: View {
     private func infoCard(icon: String, label: String, value: String) -> some View {
         VStack(spacing: 8) {
             Image(systemName: icon)
-                .font(.system(size: 28))
-                .foregroundColor(.blue)
-            
+                .font(Theme.Fonts.sans(size: 28))
+                .foregroundColor(Theme.Colors.accentBackground)
+
             Text(label)
-                .font(.system(size: 12))
-                .foregroundColor(.secondary)
-            
+                .font(Theme.Fonts.sans(size: 12))
+                .foregroundColor(Theme.Colors.mutedText)
+
             Text(value)
-                .font(.system(size: 16, weight: .bold))
+                .font(Theme.Fonts.sans(size: 16, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
         }
         .frame(maxWidth: .infinity)
         .padding(16)
-        .background(Color(.systemBackground))
+        .background(Theme.Colors.cardBackground)
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
     }
     
     // MARK: - Ingredients Section
@@ -165,25 +172,31 @@ struct RecipeDetailView: View {
     private var ingredientsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Ingredients")
-                .font(.system(size: 20, weight: .bold))
-            
+                .font(Theme.Fonts.sans(size: 20, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
+
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(recipe.ingredients, id: \.self) { ingredient in
                     HStack(alignment: .top, spacing: 12) {
                         Circle()
-                            .fill(Color.blue)
+                            .fill(Theme.Colors.accentBackground)
                             .frame(width: 6, height: 6)
                             .padding(.top, 6)
-                        
+
                         Text(ingredient)
-                            .font(.system(size: 15))
+                            .font(Theme.Fonts.sans(size: 15))
+                            .foregroundColor(Theme.Colors.cardText)
                     }
                 }
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.cardBackground)
             .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+            )
         }
     }
     
@@ -192,15 +205,21 @@ struct RecipeDetailView: View {
     private func instructionsSection(_ instructions: String) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Instructions")
-                .font(.system(size: 20, weight: .bold))
-            
+                .font(Theme.Fonts.sans(size: 20, weight: .bold))
+                .foregroundColor(Theme.Colors.cardText)
+
             Text(instructions)
-                .font(.system(size: 15))
+                .font(Theme.Fonts.sans(size: 15))
+                .foregroundColor(Theme.Colors.cardText)
                 .lineSpacing(6)
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(.systemBackground))
+                .background(Theme.Colors.cardBackground)
                 .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+                )
         }
     }
     
@@ -212,13 +231,13 @@ struct RecipeDetailView: View {
                 Image(systemName: "plus.circle.fill")
                 Text("Add to Today")
             }
-            .font(.system(size: 16, weight: .semibold))
-            .foregroundColor(.white)
+            .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+            .foregroundColor(Theme.Colors.primaryText)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
-            .background(Color.blue)
+            .background(Theme.Colors.primaryBackground)
             .cornerRadius(12)
-            .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
+            .shadow(color: Theme.Colors.primaryBackground.opacity(0.4), radius: 10, x: 0, y: 4)
         }
     }
     

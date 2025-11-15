@@ -36,26 +36,27 @@ struct HomeView: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
                 }
-                
+                .background(Theme.Colors.background)
+
                 // Floating Add Button
                 Button(action: { showingAddMeal = true }) {
                     HStack {
                         Image(systemName: "plus")
                         Text("Add Meal")
                     }
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
+                    .font(Theme.Fonts.sans(size: 16, weight: .semibold))
+                    .foregroundColor(Theme.Colors.primaryText)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 14)
-                    .background(Color.blue)
+                    .background(Theme.Colors.primaryBackground)
                     .cornerRadius(25)
-                    .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
+                    .shadow(color: Theme.Colors.primaryBackground.opacity(0.4), radius: 10, x: 0, y: 4)
                 }
                 .padding(16)
             }
             .navigationTitle("Wellday")
             .navigationBarTitleDisplayMode(.large)
-            .background(Color(.systemGroupedBackground))
+            .background(Theme.Colors.background.ignoresSafeArea())
             .sheet(isPresented: $showingAddMeal) {
                 AddMealView()
             }
@@ -103,14 +104,14 @@ struct HomeView: View {
                     title: "Streak",
                     value: "\(streak) days",
                     icon: "flame.fill",
-                    color: .orange
+                    color: Theme.Colors.chartFour
                 )
-                
+
                 InfoTile(
                     title: "Today's Points",
                     value: "\(points) pts",
                     icon: "star.fill",
-                    color: .blue
+                    color: Theme.Colors.chartThree
                 )
             }
             
@@ -119,14 +120,14 @@ struct HomeView: View {
                     title: "Meals",
                     value: "\(meals) / 3",
                     icon: "fork.knife",
-                    color: .green
+                    color: Theme.Colors.primaryBackground
                 )
-                
+
                 InfoTile(
                     title: "Budget",
                     value: budget != nil ? "$\(Int(spent)) / $\(Int(budget!))" : "Not set",
                     icon: "dollarsign.circle.fill",
-                    color: .purple
+                    color: Theme.Colors.chartFive
                 )
             }
         }
@@ -146,26 +147,27 @@ struct HomeView: View {
         return AnyView(
             VStack(alignment: .leading, spacing: 16) {
                 Text("7-Day Trend")
-                    .font(.system(size: 16, weight: .bold))
-                
+                    .font(Theme.Fonts.sans(size: 16, weight: .bold))
+                    .foregroundColor(Theme.Colors.cardText)
+
                 HStack(alignment: .bottom, spacing: 0) {
                     ForEach(0..<7) { index in
                         VStack(spacing: 4) {
                             if index < stats.count {
                                 let stat = stats[index]
                                 let height = CGFloat(stat.finalPoints) / CGFloat(maxPoints) * 80
-                                
+
                                 Text("\(stat.finalPoints)")
-                                    .font(.system(size: 12, weight: .semibold))
-                                    .foregroundColor(.secondary)
-                                
+                                    .font(Theme.Fonts.mono(size: 12, weight: .semibold))
+                                    .foregroundColor(Theme.Colors.mutedText)
+
                                 RoundedRectangle(cornerRadius: 4)
-                                    .fill(stat.finalPoints >= 20 ? Color.green : stat.finalPoints >= 10 ? Color.blue : Color.gray.opacity(0.3))
+                                    .fill(stat.finalPoints >= 20 ? Theme.Colors.chartOne : stat.finalPoints >= 10 ? Theme.Colors.chartTwo : Theme.Colors.componentsBorder)
                                     .frame(height: max(height, 4))
-                                
+
                                 Text(stat.dayOfWeek.prefix(1))
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.secondary)
+                                    .font(Theme.Fonts.sans(size: 11))
+                                    .foregroundColor(Theme.Colors.mutedText)
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -174,9 +176,13 @@ struct HomeView: View {
                 .frame(height: 120)
             }
             .padding(16)
-            .background(Color(.systemBackground))
+            .background(Theme.Colors.cardBackground)
             .cornerRadius(16)
-            .shadow(color: .black.opacity(0.05), radius: 5, x: 0, y: 2)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.25), radius: 8, x: 0, y: 3)
         )
     }
     
@@ -188,17 +194,18 @@ struct HomeView: View {
         return VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Today's Meals")
-                    .font(.system(size: 20, weight: .bold))
-                
+                    .font(Theme.Fonts.sans(size: 20, weight: .bold))
+                    .foregroundColor(Theme.Colors.cardText)
+
                 Spacer()
-                
+
                 if !todayMeals.isEmpty {
                     Text("\(todayMeals.count) meal\(todayMeals.count == 1 ? "" : "s")")
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
+                        .font(Theme.Fonts.sans(size: 14))
+                        .foregroundColor(Theme.Colors.mutedText)
                 }
             }
-            
+
             if todayMeals.isEmpty {
                 EmptyStateView(
                     icon: "fork.knife",
@@ -214,6 +221,13 @@ struct HomeView: View {
                 }
             }
         }
+        .padding(16)
+        .background(Theme.Colors.cardBackground)
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Theme.Colors.componentsBorder, lineWidth: 1)
+        )
     }
 }
 
