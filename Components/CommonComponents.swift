@@ -8,6 +8,127 @@
 
 import SwiftUI
 
+// MARK: - Legacy compatibility helpers
+/// Some of the views across the project still reference the older
+/// component names (`TierBadge`, `HealthTag`, `PointsBadge`).
+/// They now live in this file so we keep a thin compatibility layer
+/// to avoid updating every call site while still providing the new
+/// implementations below.
+typealias TierBadge = AnimatedTierBadge
+
+// MARK: - Health Tag
+struct HealthTag: View {
+    private let text: String
+    private let small: Bool
+
+    init(_ text: String, small: Bool = false) {
+        self.text = text
+        self.small = small
+    }
+
+    var body: some View {
+        Text(text)
+            .font(
+                Theme.Fonts.sans(
+                    size: small ? 11 : 13,
+                    weight: small ? .semibold : .bold
+                )
+            )
+            .foregroundColor(tagForeground)
+            .padding(.horizontal, small ? 8 : 12)
+            .padding(.vertical, small ? 4 : 6)
+            .background(tagBackground)
+            .overlay(
+                Capsule()
+                    .stroke(tagBorder, lineWidth: 1)
+            )
+            .clipShape(Capsule())
+    }
+
+    private var tagForeground: Color {
+        Theme.Colors.cardText
+    }
+
+    private var tagBackground: some View {
+        Capsule()
+            .fill(
+                LinearGradient(
+                    colors: [accentColor.opacity(0.15), accentColor.opacity(0.05)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+    }
+
+    private var tagBorder: Color {
+        accentColor.opacity(0.4)
+    }
+
+    private var accentColor: Color {
+        // Derive a pseudo-random but stable color from the tag text so
+        // that tags feel unique while staying within the theme palette.
+        let colors: [Color] = [
+            Theme.Colors.primaryBackground,
+            Theme.Colors.secondaryBackground,
+            Theme.Colors.chartTwo,
+            Theme.Colors.chartThree,
+            Theme.Colors.chartFour,
+            Theme.Colors.chartFive
+        ]
+
+        let hash = text.unicodeScalars.reduce(0) { ($0 << 5) &+ $0 &+ Int($1.value) }
+        return colors[hash % colors.count]
+    }
+}
+
+// MARK: - Points Badge
+struct PointsBadge: View {
+    let points: Int
+    let large: Bool
+
+    init(points: Int, large: Bool = false) {
+        self.points = points
+        self.large = large
+    }
+
+    private var statusColor: Color {
+        switch points {
+        case let value where value >= 10:
+            return Theme.Colors.primaryBackground
+        case let value where value >= 0:
+            return Theme.Colors.secondaryBackground
+        default:
+            return Theme.Colors.destructiveBackground
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: points >= 0 ? "star.fill" : "exclamationmark.triangle")
+                .font(Theme.Fonts.sans(size: large ? 18 : 14, weight: .bold))
+            Text("\(points > 0 ? "+" : "")\(points) pts")
+                .font(Theme.Fonts.mono(size: large ? 16 : 13, weight: .semibold))
+        }
+        .foregroundColor(Theme.Colors.cardText)
+        .padding(.horizontal, large ? 14 : 10)
+        .padding(.vertical, large ? 8 : 6)
+        .background(
+            Capsule()
+                .fill(
+                    LinearGradient(
+                        colors: [statusColor.opacity(0.25), statusColor.opacity(0.08)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+        )
+        .overlay(
+            Capsule()
+                .stroke(statusColor.opacity(0.5), lineWidth: 1)
+        )
+    }
+}
+
 // MARK: - Animated Tier Badge with Glow Effect
 struct AnimatedTierBadge: View {
     let tier: MealTier
