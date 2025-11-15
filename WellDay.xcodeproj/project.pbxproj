@@ -6,6 +6,27 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C38766EC2EC8344B00AB0938 /* WellDayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38766EB2EC8344B00AB0938 /* WellDayApp.swift */; };
+		C38766F02EC8344B00AB0938 /* CommonComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38766EF2EC8344B00AB0938 /* CommonComponents.swift */; };
+		C387671F2EC8372400AB0938 /* MealRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387671D2EC8371C00AB0938 /* MealRow.swift */; };
+		C38767312EC83F3600AB0938 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767072EC8344C00AB0938 /* StorageService.swift */; };
+		C38767322EC83F3C00AB0938 /* AdvisorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767052EC8344C00AB0938 /* AdvisorService.swift */; };
+		C38767332EC83F4C00AB0938 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38766FB2EC8344C00AB0938 /* Recipe.swift */; };
+		C38767342EC83F5200AB0938 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387671A2EC835C500AB0938 /* Meal.swift */; };
+		C38767352EC83F5700AB0938 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767172EC8353D00AB0938 /* UserProfile.swift */; };
+		C38767362EC83F5D00AB0938 /* DailyStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767142EC8350B00AB0938 /* DailyStats.swift */; };
+		C38767372EC83F6300AB0938 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767252EC839A900AB0938 /* UserViewModel.swift */; };
+		C38767382EC83F6800AB0938 /* RecipesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767262EC839BD00AB0938 /* RecipesViewModel.swift */; };
+		C38767392EC83F6E00AB0938 /* MealsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767272EC839E700AB0938 /* MealsViewModel.swift */; };
+		C387673A2EC83F7700AB0938 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672F2EC83D4800AB0938 /* HomeView.swift */; };
+		C387673B2EC83F8700AB0938 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672D2EC83C5600AB0938 /* ProfileView.swift */; };
+		C387673C2EC83F8C00AB0938 /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672E2EC83C9100AB0938 /* AddRecipeView.swift */; };
+		C387673D2EC83F9200AB0938 /* RecipeHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672C2EC83BB900AB0938 /* RecipeHubView.swift */; };
+		C387673E2EC83F9700AB0938 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672B2EC83B9F00AB0938 /* RecipeDetailView.swift */; };
+		C387673F2EC83F9B00AB0938 /* AddMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767302EC83D8900AB0938 /* AddMealView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C38766F82EC8344C00AB0938 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -25,27 +46,27 @@
 
 /* Begin PBXFileReference section */
 		C38766E82EC8344B00AB0938 /* WellDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38766EB2EC8344B00AB0938 /* WellDayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WellDayApp.swift; sourceTree = "<group>"; };
+		C38766EF2EC8344B00AB0938 /* CommonComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonComponents.swift; sourceTree = "<group>"; };
 		C38766F72EC8344C00AB0938 /* WellDayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WellDayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38766FB2EC8344C00AB0938 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		C38767012EC8344C00AB0938 /* WellDayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WellDayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C38767052EC8344C00AB0938 /* AdvisorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvisorService.swift; sourceTree = "<group>"; };
+		C38767072EC8344C00AB0938 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		C38767142EC8350B00AB0938 /* DailyStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStats.swift; sourceTree = "<group>"; };
+		C38767172EC8353D00AB0938 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		C387671A2EC835C500AB0938 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		C387671D2EC8371C00AB0938 /* MealRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRow.swift; sourceTree = "<group>"; };
+		C38767252EC839A900AB0938 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		C38767262EC839BD00AB0938 /* RecipesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewModel.swift; sourceTree = "<group>"; };
+		C38767272EC839E700AB0938 /* MealsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsViewModel.swift; sourceTree = "<group>"; };
+		C387672B2EC83B9F00AB0938 /* RecipeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailView.swift; sourceTree = "<group>"; };
+		C387672C2EC83BB900AB0938 /* RecipeHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeHubView.swift; sourceTree = "<group>"; };
+		C387672D2EC83C5600AB0938 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		C387672E2EC83C9100AB0938 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
+		C387672F2EC83D4800AB0938 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C38767302EC83D8900AB0938 /* AddMealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		C38766EA2EC8344B00AB0938 /* WellDay */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WellDay;
-			sourceTree = "<group>";
-		};
-		C38766FA2EC8344C00AB0938 /* WellDayTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WellDayTests;
-			sourceTree = "<group>";
-		};
-		C38767042EC8344C00AB0938 /* WellDayUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = WellDayUITests;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C38766E52EC8344B00AB0938 /* Frameworks */ = {
@@ -75,9 +96,12 @@
 		C38766DF2EC8344B00AB0938 = {
 			isa = PBXGroup;
 			children = (
-				C38766EA2EC8344B00AB0938 /* WellDay */,
-				C38766FA2EC8344C00AB0938 /* WellDayTests */,
-				C38767042EC8344C00AB0938 /* WellDayUITests */,
+				C387672A2EC83B7500AB0938 /* Views */,
+				C38767282EC83B1700AB0938 /* App */,
+				C38767242EC8399B00AB0938 /* viewModels */,
+				C38767222EC8390400AB0938 /* Models */,
+				C38767202EC838A300AB0938 /* Components */,
+				C38767232EC8391C00AB0938 /* Services */,
 				C38766E92EC8344B00AB0938 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +114,66 @@
 				C38767012EC8344C00AB0938 /* WellDayUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C38767202EC838A300AB0938 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C38766EF2EC8344B00AB0938 /* CommonComponents.swift */,
+				C387671D2EC8371C00AB0938 /* MealRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C38767222EC8390400AB0938 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C38767142EC8350B00AB0938 /* DailyStats.swift */,
+				C38767172EC8353D00AB0938 /* UserProfile.swift */,
+				C387671A2EC835C500AB0938 /* Meal.swift */,
+				C38766FB2EC8344C00AB0938 /* Recipe.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C38767232EC8391C00AB0938 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C38767052EC8344C00AB0938 /* AdvisorService.swift */,
+				C38767072EC8344C00AB0938 /* StorageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C38767242EC8399B00AB0938 /* viewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C38767272EC839E700AB0938 /* MealsViewModel.swift */,
+				C38767262EC839BD00AB0938 /* RecipesViewModel.swift */,
+				C38767252EC839A900AB0938 /* UserViewModel.swift */,
+			);
+			path = viewModels;
+			sourceTree = "<group>";
+		};
+		C38767282EC83B1700AB0938 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C38766EB2EC8344B00AB0938 /* WellDayApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C387672A2EC83B7500AB0938 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C38767302EC83D8900AB0938 /* AddMealView.swift */,
+				C387672B2EC83B9F00AB0938 /* RecipeDetailView.swift */,
+				C387672C2EC83BB900AB0938 /* RecipeHubView.swift */,
+				C387672E2EC83C9100AB0938 /* AddRecipeView.swift */,
+				C387672D2EC83C5600AB0938 /* ProfileView.swift */,
+				C387672F2EC83D4800AB0938 /* HomeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,9 +190,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				C38766EA2EC8344B00AB0938 /* WellDay */,
 			);
 			name = WellDay;
 			packageProductDependencies = (
@@ -130,9 +211,6 @@
 			dependencies = (
 				C38766F92EC8344C00AB0938 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				C38766FA2EC8344C00AB0938 /* WellDayTests */,
-			);
 			name = WellDayTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +230,6 @@
 			);
 			dependencies = (
 				C38767032EC8344C00AB0938 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				C38767042EC8344C00AB0938 /* WellDayUITests */,
 			);
 			name = WellDayUITests;
 			packageProductDependencies = (
@@ -236,6 +311,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C387673D2EC83F9200AB0938 /* RecipeHubView.swift in Sources */,
+				C38766F02EC8344B00AB0938 /* CommonComponents.swift in Sources */,
+				C38767312EC83F3600AB0938 /* StorageService.swift in Sources */,
+				C387673A2EC83F7700AB0938 /* HomeView.swift in Sources */,
+				C38767342EC83F5200AB0938 /* Meal.swift in Sources */,
+				C38767382EC83F6800AB0938 /* RecipesViewModel.swift in Sources */,
+				C38767372EC83F6300AB0938 /* UserViewModel.swift in Sources */,
+				C38767392EC83F6E00AB0938 /* MealsViewModel.swift in Sources */,
+				C38766EC2EC8344B00AB0938 /* WellDayApp.swift in Sources */,
+				C38767352EC83F5700AB0938 /* UserProfile.swift in Sources */,
+				C38767332EC83F4C00AB0938 /* Recipe.swift in Sources */,
+				C387671F2EC8372400AB0938 /* MealRow.swift in Sources */,
+				C38767362EC83F5D00AB0938 /* DailyStats.swift in Sources */,
+				C387673B2EC83F8700AB0938 /* ProfileView.swift in Sources */,
+				C38767322EC83F3C00AB0938 /* AdvisorService.swift in Sources */,
+				C387673F2EC83F9B00AB0938 /* AddMealView.swift in Sources */,
+				C387673C2EC83F8C00AB0938 /* AddRecipeView.swift in Sources */,
+				C387673E2EC83F9700AB0938 /* RecipeDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
