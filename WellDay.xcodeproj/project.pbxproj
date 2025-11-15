@@ -25,6 +25,7 @@
 		C387673D2EC83F9200AB0938 /* RecipeHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672C2EC83BB900AB0938 /* RecipeHubView.swift */; };
 		C387673E2EC83F9700AB0938 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672B2EC83B9F00AB0938 /* RecipeDetailView.swift */; };
 		C387673F2EC83F9B00AB0938 /* AddMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767302EC83D8900AB0938 /* AddMealView.swift */; };
+		C38767762EC8B31A00AB0938 /* NutritionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767752EC8B30900AB0938 /* NutritionAnalysisService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		C387672E2EC83C9100AB0938 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
 		C387672F2EC83D4800AB0938 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C38767302EC83D8900AB0938 /* AddMealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealView.swift; sourceTree = "<group>"; };
+		C38767752EC8B30900AB0938 /* NutritionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAnalysisService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		C38767232EC8391C00AB0938 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C38767752EC8B30900AB0938 /* NutritionAnalysisService.swift */,
 				C38767052EC8344C00AB0938 /* AdvisorService.swift */,
 				C38767072EC8344C00AB0938 /* StorageService.swift */,
 			);
@@ -321,6 +324,7 @@
 				C38767392EC83F6E00AB0938 /* MealsViewModel.swift in Sources */,
 				C38766EC2EC8344B00AB0938 /* WellDayApp.swift in Sources */,
 				C38767352EC83F5700AB0938 /* UserProfile.swift in Sources */,
+				C38767762EC8B31A00AB0938 /* NutritionAnalysisService.swift in Sources */,
 				C38767332EC83F4C00AB0938 /* Recipe.swift in Sources */,
 				C387671F2EC8372400AB0938 /* MealRow.swift in Sources */,
 				C38767362EC83F5D00AB0938 /* DailyStats.swift in Sources */,
