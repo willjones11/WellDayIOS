@@ -26,6 +26,7 @@
 		C387673E2EC83F9700AB0938 /* RecipeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C387672B2EC83B9F00AB0938 /* RecipeDetailView.swift */; };
 		C387673F2EC83F9B00AB0938 /* AddMealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767302EC83D8900AB0938 /* AddMealView.swift */; };
 		C38767762EC8B31A00AB0938 /* NutritionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767752EC8B30900AB0938 /* NutritionAnalysisService.swift */; };
+		C38767782EC8C18E00AB0938 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38767772EC8C18E00AB0938 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		C387672F2EC83D4800AB0938 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C38767302EC83D8900AB0938 /* AddMealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMealView.swift; sourceTree = "<group>"; };
 		C38767752EC8B30900AB0938 /* NutritionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionAnalysisService.swift; sourceTree = "<group>"; };
+		C38767772EC8C18E00AB0938 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				C38766EB2EC8344B00AB0938 /* WellDayApp.swift */,
+				C38767772EC8C18E00AB0938 /* Theme.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				C387673B2EC83F8700AB0938 /* ProfileView.swift in Sources */,
 				C38767322EC83F3C00AB0938 /* AdvisorService.swift in Sources */,
 				C387673F2EC83F9B00AB0938 /* AddMealView.swift in Sources */,
+				C38767782EC8C18E00AB0938 /* Theme.swift in Sources */,
 				C387673C2EC83F8C00AB0938 /* AddRecipeView.swift in Sources */,
 				C387673E2EC83F9700AB0938 /* RecipeDetailView.swift in Sources */,
 			);
