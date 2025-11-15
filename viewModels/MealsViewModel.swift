@@ -57,7 +57,7 @@ class MealsViewModel: ObservableObject {
     
     func getLast7DaysStats() -> [DailyStats] {
         var stats: [DailyStats] = []
-        for i in 6...0 {
+        for i in stride(from: 6, through: 0, by:-1) {
             let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
             if let stat = getDailyStats(for: date) {
                 stats.append(stat)
